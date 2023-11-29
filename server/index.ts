@@ -7,12 +7,49 @@ const supabaseKey = "";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const typeDefs = `#graphql
-  type Query {}
+  type Member {
+    no: String
+    name: String
+    role: Role
+    jobTitle: JobTitle
+  }
+  # resolver type
+  type Role {
+    name: String
+  }
+  type JobTitle {
+    name: String
+  }
+  type Query {
+    members: [Member]
+  }
 `;
 
 const resolvers = {
   Query: {
+    members: async () => {
+      let { data: members, error } = await supabase.from("Member").select("*");
 
+      return members;
+    },
+  },
+  Member: {
+    role: async (parent) => {
+      let { data: roles, error } = await supabase
+        .from("Role")
+        .select("*")
+        .eq("id", parent.role_id);
+
+      return roles[0];
+    },
+    jobTitle: async (parent) => {
+      let { data: jobTitles, error } = await supabase
+        .from("JobTitle")
+        .select("*")
+        .eq("id", parent.job_title_id);
+
+      return jobTitles[0];
+    }
   },
 };
 
