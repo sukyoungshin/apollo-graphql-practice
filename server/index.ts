@@ -13,7 +13,6 @@ const typeDefs = `#graphql
     role: Role
     jobTitle: JobTitle
   }
-  # resolver type
   type Role {
     name: String
   }
@@ -58,11 +57,6 @@ const server = new ApolloServer({
   resolvers,
 });
 
-// Passing an ApolloServer instance to the `startStandaloneServer` function:
-//  1. creates an Express app
-//  2. installs your ApolloServer instance as middleware
-//  3. prepares your app to handle incoming requests
-
 (async () => {
   try {
     const { url } = await startStandaloneServer(server, {
@@ -72,5 +66,4 @@ const server = new ApolloServer({
   } catch (e) {
     console.log(e);
   }
-  // `text` is not available here
 })();
