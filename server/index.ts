@@ -34,19 +34,19 @@ const resolvers = {
     },
   },
   Member: {
-    role: async (parent) => {
+    role: async ({ role_id }) => {
       let { data: roles, error } = await supabase
         .from("Role")
         .select("*")
-        .eq("id", parent.role_id);
+        .eq("id", role_id);
 
       return roles[0];
     },
-    jobTitle: async (parent) => {
+    jobTitle: async ({ job_title_id }) => {
       let { data: jobTitles, error } = await supabase
         .from("JobTitle")
         .select("*")
-        .eq("id", parent.job_title_id);
+        .eq("id", job_title_id);
 
       return jobTitles[0];
     }
