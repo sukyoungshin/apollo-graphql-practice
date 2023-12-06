@@ -27,14 +27,14 @@ const typeDefs = `#graphql
 const resolvers = {
   Query: {
     members: async () => {
-      let { data: members, error } = await supabase.from("Member").select("*");
+      const { data: members, error } = await supabase.from("Member").select("*");
 
       return members;
     },
   },
   Member: {
     role: async ({ role_id }) => {
-      let { data: roles, error } = await supabase
+      const { data: roles, error } = await supabase
         .from("Role")
         .select("*")
         .eq("id", role_id);
@@ -42,7 +42,7 @@ const resolvers = {
       return roles[0];
     },
     jobTitle: async ({ job_title_id }) => {
-      let { data: jobTitles, error } = await supabase
+      const { data: jobTitles, error } = await supabase
         .from("JobTitle")
         .select("*")
         .eq("id", job_title_id);
