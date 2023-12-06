@@ -1,9 +1,10 @@
 const { createClient } = require("@supabase/supabase-js");
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
+require("dotenv").config();
 
-const supabaseUrl = "";
-const supabaseKey = "";
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_API_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const typeDefs = `#graphql
