@@ -75,9 +75,6 @@ const resolvers = {
       if (rolesError) {
         handleError(rolesError.message);
       }
-      if (!roles.length) {
-        handleError('invalid role_id');
-      }
 
       // 2. 사용자가 입력한 job_title_id 값이 JobTitle 테이블 내 존재하는지 확인합니다.
       const { data: jobTitles, error: jobTitlesError } = await supabase
@@ -86,9 +83,6 @@ const resolvers = {
         .eq("id", job_title_id);
       if (jobTitlesError) {
         handleError(jobTitlesError.message);
-      }
-      if (!jobTitles.length) {
-        handleError('invalid jobTitles');
       }
 
       // TODO: 3. 사용자가 입력한 값이 테이블 내 중복되지 않는지 확인합니다.
@@ -135,11 +129,6 @@ const resolvers = {
       if (updateError) {
         handleError(updateError.message);
       }
-      // QUESTION: 에러가 아닌데 서버쪽에서 에러문구를 나타내는게 맞나. 혹은 프론트에서 처리해야하는것인가?
-      if (!members[0]) {
-        handleError('업데이트된 정보가 없습니다.');
-      }
-
       return members[0];
     },
     deleteMember: async (_, { id }) => {
