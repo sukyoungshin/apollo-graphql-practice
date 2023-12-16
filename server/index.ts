@@ -21,9 +21,11 @@ const typeDefs = `#graphql
     jobTitle: JobTitle
   }
   type Role {
+    id: Int
     name: String
   }
   type JobTitle {
+    id: Int
     name: String
   }
   type Query {
