@@ -15,8 +15,8 @@ const typeDefs = `#graphql
     profile_img: String
     gender: String
     birthday: String
-    job_start_year: String
-    joined_year: String
+    job_start_year: Int
+    joined_year: Int
     role: Role
     jobTitle: JobTitle
   }
@@ -33,8 +33,8 @@ const typeDefs = `#graphql
     isSuccess: Boolean
   }
   type Mutation {
-    createMember(role_id: Int!, job_title_id: Int!, no: String, name: String, profile_img: String, gender: String, birthday: String, job_start_year: String, joined_year: String): Member
-    updateMember(id: Int!, role_id: Int, job_title_id: Int, no: String, name: String, profile_img: String, gender: String, birthday: String, job_start_year: String, joined_year: String): Member
+    createMember(role_id: Int!, job_title_id: Int!, no: String, name: String, profile_img: String, gender: String, birthday: String, job_start_year: Int, joined_year: Int): Member
+    updateMember(id: Int!, role_id: Int, job_title_id: Int, no: String, name: String, profile_img: String, gender: String, birthday: String, job_start_year: Int, joined_year: Int): Member
     deleteMember(id: Int!): MutationResultType
   }
 `;
