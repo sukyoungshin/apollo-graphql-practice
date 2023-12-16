@@ -135,7 +135,7 @@ const resolvers = {
       if (updateError) {
         handleError(updateError.message);
       }
-      // QUESTION: 에러가 아닌데 에러문구를 나타내는게 맞나
+      // QUESTION: 에러가 아닌데 서버쪽에서 에러문구를 나타내는게 맞나. 혹은 프론트에서 처리해야하는것인가?
       if (!members[0]) {
         handleError('업데이트된 정보가 없습니다.');
       }
