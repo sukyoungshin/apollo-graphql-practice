@@ -13,7 +13,7 @@ const typeDefs = `#graphql
     no: String
     name: String
     profile_img: String
-    gender: String
+    gender: GenderType
     birthday: String
     job_start_year: Int
     joined_year: Int
@@ -34,11 +34,15 @@ const typeDefs = `#graphql
   type MutationResultType {
     isSuccess: Boolean
   }
+  enum GenderType {
+    F
+    M
+  }
   input CommonMemberType {
     no: String
     name: String
     profile_img: String
-    gender: String
+    gender: GenderType
     birthday: String
     job_start_year: Int
     joined_year: Int
