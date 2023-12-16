@@ -34,9 +34,18 @@ const typeDefs = `#graphql
   type MutationResultType {
     isSuccess: Boolean
   }
+  input CommonMemberType {
+    no: String
+    name: String
+    profile_img: String
+    gender: String
+    birthday: String
+    job_start_year: Int
+    joined_year: Int
+  }
   type Mutation {
-    createMember(role_id: Int!, job_title_id: Int!, no: String, name: String, profile_img: String, gender: String, birthday: String, job_start_year: Int, joined_year: Int): Member
-    updateMember(id: Int!, role_id: Int, job_title_id: Int, no: String, name: String, profile_img: String, gender: String, birthday: String, job_start_year: Int, joined_year: Int): Member
+    createMember(role_id: Int!, job_title_id: Int!, commonMemberType: CommonMemberType!): Member
+    updateMember(id: Int!, role_id: Int, job_title_id: Int, commonMemberType: CommonMemberType!): Member
     deleteMember(id: Int!): MutationResultType
   }
 `;
@@ -68,7 +77,8 @@ const resolvers = {
     }
   },
   Mutation: {
-    createMember: async (_, { role_id, job_title_id, no, name, profile_img, gender, birthday, job_start_year, joined_year }) => {
+    createMember: async (_, { role_id, job_title_id, commonMemberType }) => {
+      const { no, name, profile_img, gender, birthday, job_start_year, joined_year } = commonMemberType;
       // 1. 사용자가 입력한 role_id 값이 Role 테이블 내 존재하는지 확인합니다.
       const { data: roles, error: rolesError } = await supabase
         .from("Role")
@@ -87,10 +97,11 @@ const resolvers = {
         handleError(jobTitlesError.message);
       }
 
-      // TODO: 3. 사용자가 입력한 값이 테이블 내 중복되지 않는지 확인합니다.
+      // TODO: 3. commonMemberType이 빈 객체가 들어오는 경우에도 테이블에 추가됨. 프론트 및 서버에서 예외처리 추가필요
 
+      // TODO: 4. 사용자가 입력한 값이 테이블 내 중복되지 않는지 확인합니다.
 
-      // 4. 입력받은 데이터를 Member 테이블에 등록합니다.
+      // 5. 검증이 완료된 데이터를 Member 테이블에 등록합니다.
       const { data: members, error: membersError } = await supabase
         .from('Member')
         .insert({
@@ -111,7 +122,8 @@ const resolvers = {
       }
       return members[0];
     },
-    updateMember: async (_, { id, role_id, job_title_id, no, name, profile_img, gender, birthday, job_start_year, joined_year }) => {
+    updateMember: async (_, { id, role_id, job_title_id, commonMemberType }) => {
+      const { no, name, profile_img, gender, birthday, job_start_year, joined_year } = commonMemberType;
       const { data: members, error: updateError } = await supabase
         .from('Member')
         .update({
