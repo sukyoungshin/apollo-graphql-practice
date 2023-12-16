@@ -9,15 +9,23 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const typeDefs = `#graphql
   type Member {
+    id: Int
     no: String
     name: String
+    profile_img: String
+    gender: String
+    birthday: String
+    job_start_year: Int
+    joined_year: Int
     role: Role
     jobTitle: JobTitle
   }
   type Role {
+    id: Int
     name: String
   }
   type JobTitle {
+    id: Int 
     name: String
   }
   type Query {
