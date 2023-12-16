@@ -82,12 +82,7 @@ const resolvers = {
         }
       }
 
-      const { data: members, error: membersError } = await query;
-
-      if (membersError) {
-        throw Error(membersError.message);
-      };
-      return members;
+      return getDataArray(query);
     },
   },
   Member: {
@@ -125,3 +120,13 @@ const server = new ApolloServer({
     console.log(e);
   }
 })();
+
+/** 조건에 일치하는 데이터를 리턴합니다 */
+const getDataArray = async (query) => {
+  const { data: dataArray, error } = await query;
+
+  if (error) {
+    throw Error(error.message);
+  };
+  return dataArray;
+}
